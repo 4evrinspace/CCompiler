@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11
+CFLAGS = -Wall -Wextra -std=c11 -g
 LEX = flex
 YACC = bison
 YFLAGS = -d
@@ -18,10 +18,10 @@ lex.yy.c: lexer.l parser.tab.h
 parser.tab.c parser.tab.h: parser.y
 	$(YACC) $(YFLAGS) $<
 
-%.o: %.c
+%.o: %.c compiler.h
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f $(TARGET) $(OBJS) lex.yy.c parser.tab.c parser.tab.h output.s
+	rm -f $(TARGET) $(OBJS) lex.yy.c parser.tab.c parser.tab.h output.s *.dSYM
 
 .PHONY: all clean 

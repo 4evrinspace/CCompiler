@@ -41,7 +41,7 @@ typedef enum {
 
 
 void generate_riscv_code(ASTNode* node, FILE* output);
-void generate_function_prologue(FILE* output);
+void generate_function_prologue(const char* func_name, FILE* output);
 void generate_function_epilogue(FILE* output);
 void generate_expression(ASTNode* node, FILE* output, RiscvReg dest_reg);
 void generate_statement(ASTNode* node, FILE* output);

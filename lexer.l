@@ -13,8 +13,8 @@ DIGIT       [0-9]
 LETTER      [a-zA-Z]
 ID          {LETTER}({LETTER}|{DIGIT})*
 NUMBER      {DIGIT}+
-WHITESPACE  [ \t\n\r]
-COMMENT     "/*"([^*]|"*"+[^*/])*"*"+"/"
+WHITESPACE  [ \t\n\r]+
+COMMENT     "/\*"([^*]|\*+[^*/])*\*+"/"
 LINECOMMENT "//".*\n
 STRING      \"[^\"]*\"
 CHAR        \'[^\']*\'
@@ -57,27 +57,27 @@ CHAR        \'[^\']*\'
 ";"         { return SEMICOLON; }
 ","         { return COMMA; }
 
-{ID}        { 
+{ID}        {
     yylval.str = (char*)malloc(strlen(yytext) + 1);
     strcpy(yylval.str, yytext);
-    return IDENTIFIER; 
+    return IDENTIFIER;
 }
 {NUMBER}    { yylval.num = atoi(yytext); return NUMBER; }
-{STRING}    { 
+{STRING}    {
     yylval.str = (char*)malloc(strlen(yytext) + 1);
     strcpy(yylval.str, yytext);
-    return STRING_LITERAL; 
+    return STRING_LITERAL;
 }
-{CHAR}      { 
+{CHAR}      {
     yylval.str = (char*)malloc(strlen(yytext) + 1);
     strcpy(yylval.str, yytext);
-    return CHAR_LITERAL; 
+    return CHAR_LITERAL;
 }
-{WHITESPACE} { /* ignore whitespace */ }
-{COMMENT}   { /* ignore comments */ }
-{LINECOMMENT} { /* ignore line comments */ }
+{WHITESPACE} { }
+{COMMENT}   { }
+{LINECOMMENT} { }
 
-.           { 
+.           {
               fprintf(stderr, "Error at line %d: Invalid character '%s'\n", yylineno, yytext);
               return -1;
             }
