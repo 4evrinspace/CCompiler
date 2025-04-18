@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Forward declaration for use in parser.tab.h
+struct ASTNode;
 
 typedef enum {
     TOKEN_INT,

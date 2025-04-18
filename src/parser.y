@@ -1,8 +1,8 @@
 %{
-#include "compiler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "compiler.h"
 
 void yyerror(const char* s);
 int yylex(void);
@@ -19,6 +19,10 @@ char* my_strdup(const char* s) {
 
 ASTNode* root = NULL;
 %}
+
+%code requires {
+    #include "compiler.h"
+}
 
 %union {
     int num;

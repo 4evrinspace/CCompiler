@@ -44,6 +44,12 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 23 "src/parser.y"
+
+    #include "compiler.h"
+
+#line 53 "pre_generated/parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -99,13 +105,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 23 "src/parser.y"
+#line 27 "src/parser.y"
 
     int num;
     char* str;
     ASTNode* node;
 
-#line 109 "pre_generated/parser.tab.h"
+#line 115 "pre_generated/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

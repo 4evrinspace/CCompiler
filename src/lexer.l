@@ -1,9 +1,15 @@
 %{
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "compiler.h"
 #include "parser.tab.h"
-#include <string.h>
 
 void yyerror(const char* s);
+// Ensure fileno is declared to avoid the implicit declaration warning
+#ifndef fileno
+extern int fileno(FILE *stream);
+#endif
 %}
 
 %option noyywrap

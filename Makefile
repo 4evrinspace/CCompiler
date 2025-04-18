@@ -19,8 +19,8 @@ GEN_H_PATH = $(GENDIR)/parser.tab.h
 
 OBJS = $(addprefix $(BUILDDIR)/, $(CORE_C_SRCS:.c=.o) $(GEN_C_FILES:.c=.o))
 
-TARGET = $(BUILDDIR)/compiler
-UNSUPPORTED_TARGET = $(BUILDDIR)/compiler_unsupported
+TARGET = compiler
+UNSUPPORTED_TARGET = compiler_unsupported
 
 CORE_HDRS = $(SRCDIR)/compiler.h $(SRCDIR)/riscv.h
 
@@ -36,7 +36,6 @@ $(TARGET): $(OBJS)
 $(UNSUPPORTED_TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(TARGET): $(GENDIR)/lex.yy.c $(GENDIR)/parser.tab.c $(GEN_H_PATH)
 
 $(GEN_H_PATH): $(GENDIR)/parser.tab.c
 
@@ -50,6 +49,6 @@ $(BUILDDIR)/%.o: %.c $(CORE_HDRS) $(GEN_H_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BUILDDIR) $(GENDIR)/lex.yy.c $(GENDIR)/parser.tab.c $(GEN_H_PATH) output.s *.dSYM parser.tab.h
+	rm -rf $(BUILDDIR)  output.s *.dSYM parser.tab.h compiler_unsupported compiler
 
 .SECONDARY: $(OBJS) $(GENDIR)/lex.yy.c $(GENDIR)/parser.tab.c $(GEN_H_PATH)

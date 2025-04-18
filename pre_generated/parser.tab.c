@@ -69,10 +69,10 @@
 /* First part of user prologue.  */
 #line 1 "src/parser.y"
 
-#include "compiler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "compiler.h"
 
 void yyerror(const char* s);
 int yylex(void);
@@ -570,13 +570,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    48,    48,    53,    65,    74,    79,    85,    89,   102,
-     106,   110,   117,   121,   135,   141,   145,   149,   153,   157,
-     161,   165,   172,   176,   181,   190,   196,   208,   217,   228,
-     233,   240,   247,   251,   256,   264,   272,   281,   285,   291,
-     300,   304,   310,   316,   322,   328,   334,   343,   347,   353,
-     362,   366,   372,   378,   387,   391,   397,   401,   405,   409,
-     414,   419,   423,   430,   438,   446,   451,   457,   461
+       0,    52,    52,    57,    69,    78,    83,    89,    93,   106,
+     110,   114,   121,   125,   139,   145,   149,   153,   157,   161,
+     165,   169,   176,   180,   185,   194,   200,   212,   221,   232,
+     237,   244,   251,   255,   260,   268,   276,   285,   289,   295,
+     304,   308,   314,   320,   326,   332,   338,   347,   351,   357,
+     366,   370,   376,   382,   391,   395,   401,   405,   409,   413,
+     418,   423,   427,   434,   442,   450,   455,   461,   465
 };
 #endif
 
@@ -1235,7 +1235,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: function_def  */
-#line 49 "src/parser.y"
+#line 53 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
         root = (yyval.node);
@@ -1244,7 +1244,7 @@ yyreduce:
     break;
 
   case 3: /* program: program function_def  */
-#line 54 "src/parser.y"
+#line 58 "src/parser.y"
     {
         ASTNode* temp = (yyvsp[-1].node);
         while(temp->next != NULL) {
@@ -1257,7 +1257,7 @@ yyreduce:
     break;
 
   case 4: /* function_def: type IDENTIFIER LPAREN param_list RPAREN LBRACE statements RBRACE  */
-#line 66 "src/parser.y"
+#line 70 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_FUNCTION, (yyvsp[-6].str));
         (yyval.node)->left = (yyvsp[-4].node);
@@ -1267,7 +1267,7 @@ yyreduce:
     break;
 
   case 5: /* param_list: params  */
-#line 75 "src/parser.y"
+#line 79 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1275,7 +1275,7 @@ yyreduce:
     break;
 
   case 6: /* param_list: %empty  */
-#line 79 "src/parser.y"
+#line 83 "src/parser.y"
     {
         (yyval.node) = NULL;
     }
@@ -1283,7 +1283,7 @@ yyreduce:
     break;
 
   case 7: /* params: type IDENTIFIER  */
-#line 86 "src/parser.y"
+#line 90 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_DECLARATION, (yyvsp[0].str));
     }
@@ -1291,7 +1291,7 @@ yyreduce:
     break;
 
   case 8: /* params: params COMMA type IDENTIFIER  */
-#line 90 "src/parser.y"
+#line 94 "src/parser.y"
     {
         ASTNode* param = create_node(NODE_DECLARATION, (yyvsp[0].str));
         ASTNode* temp = (yyvsp[-3].node);
@@ -1305,7 +1305,7 @@ yyreduce:
     break;
 
   case 9: /* type: INT  */
-#line 103 "src/parser.y"
+#line 107 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_TYPE, my_strdup("int"));
     }
@@ -1313,7 +1313,7 @@ yyreduce:
     break;
 
   case 10: /* type: CHAR  */
-#line 107 "src/parser.y"
+#line 111 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_TYPE, my_strdup("char"));
     }
@@ -1321,7 +1321,7 @@ yyreduce:
     break;
 
   case 11: /* type: VOID  */
-#line 111 "src/parser.y"
+#line 115 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_TYPE, my_strdup("void"));
     }
@@ -1329,7 +1329,7 @@ yyreduce:
     break;
 
   case 12: /* statements: statement  */
-#line 118 "src/parser.y"
+#line 122 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1337,7 +1337,7 @@ yyreduce:
     break;
 
   case 13: /* statements: statements statement  */
-#line 122 "src/parser.y"
+#line 126 "src/parser.y"
     {
         if ((yyvsp[-1].node) == NULL) {
             (yyval.node) = (yyvsp[0].node);
@@ -1354,7 +1354,7 @@ yyreduce:
     break;
 
   case 14: /* statements: %empty  */
-#line 135 "src/parser.y"
+#line 139 "src/parser.y"
     {
         (yyval.node) = NULL;
     }
@@ -1362,7 +1362,7 @@ yyreduce:
     break;
 
   case 15: /* statement: expression SEMICOLON  */
-#line 142 "src/parser.y"
+#line 146 "src/parser.y"
     {
         (yyval.node) = (yyvsp[-1].node);
     }
@@ -1370,7 +1370,7 @@ yyreduce:
     break;
 
   case 16: /* statement: declaration SEMICOLON  */
-#line 146 "src/parser.y"
+#line 150 "src/parser.y"
     {
         (yyval.node) = (yyvsp[-1].node);
     }
@@ -1378,7 +1378,7 @@ yyreduce:
     break;
 
   case 17: /* statement: if_statement  */
-#line 150 "src/parser.y"
+#line 154 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1386,7 +1386,7 @@ yyreduce:
     break;
 
   case 18: /* statement: while_statement  */
-#line 154 "src/parser.y"
+#line 158 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1394,7 +1394,7 @@ yyreduce:
     break;
 
   case 19: /* statement: for_statement  */
-#line 158 "src/parser.y"
+#line 162 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1402,7 +1402,7 @@ yyreduce:
     break;
 
   case 20: /* statement: return_statement  */
-#line 162 "src/parser.y"
+#line 166 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1410,7 +1410,7 @@ yyreduce:
     break;
 
   case 21: /* statement: LBRACE statements RBRACE  */
-#line 166 "src/parser.y"
+#line 170 "src/parser.y"
     {
         (yyval.node) = (yyvsp[-1].node);
     }
@@ -1418,7 +1418,7 @@ yyreduce:
     break;
 
   case 22: /* declaration: type IDENTIFIER  */
-#line 173 "src/parser.y"
+#line 177 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_DECLARATION, (yyvsp[0].str));
     }
@@ -1426,7 +1426,7 @@ yyreduce:
     break;
 
   case 23: /* declaration: type IDENTIFIER ASSIGN expression  */
-#line 177 "src/parser.y"
+#line 181 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_DECLARATION, (yyvsp[-2].str));
         (yyval.node)->right = (yyvsp[0].node);
@@ -1435,7 +1435,7 @@ yyreduce:
     break;
 
   case 24: /* declaration: type IDENTIFIER LBRACKET NUMBER RBRACKET  */
-#line 182 "src/parser.y"
+#line 186 "src/parser.y"
     {
         char* array_info = malloc(strlen((yyvsp[-3].str)) + 20);
         sprintf(array_info, "%s[%d]", (yyvsp[-3].str), (yyvsp[-1].num));
@@ -1445,7 +1445,7 @@ yyreduce:
     break;
 
   case 25: /* if_statement: IF LPAREN expression RPAREN statement  */
-#line 191 "src/parser.y"
+#line 195 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_IF, NULL);
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1455,7 +1455,7 @@ yyreduce:
     break;
 
   case 26: /* if_statement: IF LPAREN expression RPAREN statement ELSE statement  */
-#line 197 "src/parser.y"
+#line 201 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_IF, NULL);
         (yyval.node)->left = (yyvsp[-4].node);
@@ -1468,7 +1468,7 @@ yyreduce:
     break;
 
   case 27: /* while_statement: WHILE LPAREN expression RPAREN statement  */
-#line 209 "src/parser.y"
+#line 213 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_WHILE, NULL);
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1478,7 +1478,7 @@ yyreduce:
     break;
 
   case 28: /* for_statement: FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement  */
-#line 218 "src/parser.y"
+#line 222 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_FOR, NULL);
         (yyval.node)->left = (yyvsp[-6].node);
@@ -1490,7 +1490,7 @@ yyreduce:
     break;
 
   case 29: /* return_statement: RETURN expression SEMICOLON  */
-#line 229 "src/parser.y"
+#line 233 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_RETURN, NULL);
         (yyval.node)->left = (yyvsp[-1].node);
@@ -1499,7 +1499,7 @@ yyreduce:
     break;
 
   case 30: /* return_statement: RETURN SEMICOLON  */
-#line 234 "src/parser.y"
+#line 238 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_RETURN, NULL);
     }
@@ -1507,7 +1507,7 @@ yyreduce:
     break;
 
   case 31: /* expression: assignment_expr  */
-#line 241 "src/parser.y"
+#line 245 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1515,7 +1515,7 @@ yyreduce:
     break;
 
   case 32: /* assignment_expr: logical_expr  */
-#line 248 "src/parser.y"
+#line 252 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1523,7 +1523,7 @@ yyreduce:
     break;
 
   case 33: /* assignment_expr: IDENTIFIER ASSIGN assignment_expr  */
-#line 252 "src/parser.y"
+#line 256 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_ASSIGNMENT, (yyvsp[-2].str));
         (yyval.node)->right = (yyvsp[0].node);
@@ -1532,7 +1532,7 @@ yyreduce:
     break;
 
   case 34: /* assignment_expr: IDENTIFIER PLUS_ASSIGN assignment_expr  */
-#line 257 "src/parser.y"
+#line 261 "src/parser.y"
     {
         ASTNode* plus = create_node(NODE_EXPRESSION, my_strdup("+"));
         plus->left = create_node(NODE_EXPRESSION, (yyvsp[-2].str));
@@ -1544,7 +1544,7 @@ yyreduce:
     break;
 
   case 35: /* assignment_expr: IDENTIFIER MINUS_ASSIGN assignment_expr  */
-#line 265 "src/parser.y"
+#line 269 "src/parser.y"
     {
         ASTNode* minus = create_node(NODE_EXPRESSION, my_strdup("-"));
         minus->left = create_node(NODE_EXPRESSION, (yyvsp[-2].str));
@@ -1556,7 +1556,7 @@ yyreduce:
     break;
 
   case 36: /* assignment_expr: array_access ASSIGN assignment_expr  */
-#line 273 "src/parser.y"
+#line 277 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_ASSIGNMENT, NULL);
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1566,7 +1566,7 @@ yyreduce:
     break;
 
   case 37: /* logical_expr: relational_expr  */
-#line 282 "src/parser.y"
+#line 286 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1574,7 +1574,7 @@ yyreduce:
     break;
 
   case 38: /* logical_expr: logical_expr AND relational_expr  */
-#line 286 "src/parser.y"
+#line 290 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("&&"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1584,7 +1584,7 @@ yyreduce:
     break;
 
   case 39: /* logical_expr: logical_expr OR relational_expr  */
-#line 292 "src/parser.y"
+#line 296 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("||"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1594,7 +1594,7 @@ yyreduce:
     break;
 
   case 40: /* relational_expr: additive_expr  */
-#line 301 "src/parser.y"
+#line 305 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1602,7 +1602,7 @@ yyreduce:
     break;
 
   case 41: /* relational_expr: relational_expr EQ additive_expr  */
-#line 305 "src/parser.y"
+#line 309 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("=="));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1612,7 +1612,7 @@ yyreduce:
     break;
 
   case 42: /* relational_expr: relational_expr NEQ additive_expr  */
-#line 311 "src/parser.y"
+#line 315 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("!="));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1622,7 +1622,7 @@ yyreduce:
     break;
 
   case 43: /* relational_expr: relational_expr LT additive_expr  */
-#line 317 "src/parser.y"
+#line 321 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("<"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1632,7 +1632,7 @@ yyreduce:
     break;
 
   case 44: /* relational_expr: relational_expr GT additive_expr  */
-#line 323 "src/parser.y"
+#line 327 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup(">"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1642,7 +1642,7 @@ yyreduce:
     break;
 
   case 45: /* relational_expr: relational_expr LE additive_expr  */
-#line 329 "src/parser.y"
+#line 333 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("<="));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1652,7 +1652,7 @@ yyreduce:
     break;
 
   case 46: /* relational_expr: relational_expr GE additive_expr  */
-#line 335 "src/parser.y"
+#line 339 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup(">="));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1662,7 +1662,7 @@ yyreduce:
     break;
 
   case 47: /* additive_expr: term  */
-#line 344 "src/parser.y"
+#line 348 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1670,7 +1670,7 @@ yyreduce:
     break;
 
   case 48: /* additive_expr: additive_expr PLUS term  */
-#line 348 "src/parser.y"
+#line 352 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("+"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1680,7 +1680,7 @@ yyreduce:
     break;
 
   case 49: /* additive_expr: additive_expr MINUS term  */
-#line 354 "src/parser.y"
+#line 358 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("-"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1690,7 +1690,7 @@ yyreduce:
     break;
 
   case 50: /* term: factor  */
-#line 363 "src/parser.y"
+#line 367 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1698,7 +1698,7 @@ yyreduce:
     break;
 
   case 51: /* term: term TIMES factor  */
-#line 367 "src/parser.y"
+#line 371 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("*"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1708,7 +1708,7 @@ yyreduce:
     break;
 
   case 52: /* term: term DIVIDE factor  */
-#line 373 "src/parser.y"
+#line 377 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("/"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1718,7 +1718,7 @@ yyreduce:
     break;
 
   case 53: /* term: term MOD factor  */
-#line 379 "src/parser.y"
+#line 383 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("%"));
         (yyval.node)->left = (yyvsp[-2].node);
@@ -1728,7 +1728,7 @@ yyreduce:
     break;
 
   case 54: /* factor: IDENTIFIER  */
-#line 388 "src/parser.y"
+#line 392 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, (yyvsp[0].str));
     }
@@ -1736,7 +1736,7 @@ yyreduce:
     break;
 
   case 55: /* factor: NUMBER  */
-#line 392 "src/parser.y"
+#line 396 "src/parser.y"
     {
         char buffer[20];
         sprintf(buffer, "%d", (yyvsp[0].num));
@@ -1746,7 +1746,7 @@ yyreduce:
     break;
 
   case 56: /* factor: STRING_LITERAL  */
-#line 398 "src/parser.y"
+#line 402 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_STRING, (yyvsp[0].str));
     }
@@ -1754,7 +1754,7 @@ yyreduce:
     break;
 
   case 57: /* factor: CHAR_LITERAL  */
-#line 402 "src/parser.y"
+#line 406 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_CHAR, (yyvsp[0].str));
     }
@@ -1762,7 +1762,7 @@ yyreduce:
     break;
 
   case 58: /* factor: LPAREN expression RPAREN  */
-#line 406 "src/parser.y"
+#line 410 "src/parser.y"
     {
         (yyval.node) = (yyvsp[-1].node);
     }
@@ -1770,7 +1770,7 @@ yyreduce:
     break;
 
   case 59: /* factor: NOT factor  */
-#line 410 "src/parser.y"
+#line 414 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("!"));
         (yyval.node)->right = (yyvsp[0].node);
@@ -1779,7 +1779,7 @@ yyreduce:
     break;
 
   case 60: /* factor: MINUS factor  */
-#line 415 "src/parser.y"
+#line 419 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_EXPRESSION, my_strdup("-"));
         (yyval.node)->right = (yyvsp[0].node);
@@ -1788,7 +1788,7 @@ yyreduce:
     break;
 
   case 61: /* factor: function_call  */
-#line 420 "src/parser.y"
+#line 424 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1796,7 +1796,7 @@ yyreduce:
     break;
 
   case 62: /* factor: array_access  */
-#line 424 "src/parser.y"
+#line 428 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1804,7 +1804,7 @@ yyreduce:
     break;
 
   case 63: /* function_call: IDENTIFIER LPAREN arg_list RPAREN  */
-#line 431 "src/parser.y"
+#line 435 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_FUNCTION_CALL, (yyvsp[-3].str));
         (yyval.node)->left = (yyvsp[-1].node);
@@ -1813,7 +1813,7 @@ yyreduce:
     break;
 
   case 64: /* array_access: IDENTIFIER LBRACKET expression RBRACKET  */
-#line 439 "src/parser.y"
+#line 443 "src/parser.y"
     {
         (yyval.node) = create_node(NODE_ARRAY_ACCESS, (yyvsp[-3].str));
         (yyval.node)->left = (yyvsp[-1].node);
@@ -1822,7 +1822,7 @@ yyreduce:
     break;
 
   case 65: /* arg_list: args  */
-#line 447 "src/parser.y"
+#line 451 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1830,7 +1830,7 @@ yyreduce:
     break;
 
   case 66: /* arg_list: %empty  */
-#line 451 "src/parser.y"
+#line 455 "src/parser.y"
     {
         (yyval.node) = NULL;
     }
@@ -1838,7 +1838,7 @@ yyreduce:
     break;
 
   case 67: /* args: expression  */
-#line 458 "src/parser.y"
+#line 462 "src/parser.y"
     {
         (yyval.node) = (yyvsp[0].node);
     }
@@ -1846,7 +1846,7 @@ yyreduce:
     break;
 
   case 68: /* args: args COMMA expression  */
-#line 462 "src/parser.y"
+#line 466 "src/parser.y"
     {
         ASTNode* temp = (yyvsp[-2].node);
         while(temp->next != NULL) {
@@ -2052,7 +2052,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 472 "src/parser.y"
+#line 476 "src/parser.y"
 
 
 void yyerror(const char* s) {
