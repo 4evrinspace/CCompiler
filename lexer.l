@@ -1,6 +1,7 @@
 %{
 #include "compiler.h"
 #include "parser.tab.h"
+#include <string.h>
 
 void yyerror(const char* s);
 %}
@@ -12,8 +13,11 @@ DIGIT       [0-9]
 LETTER      [a-zA-Z]
 ID          {LETTER}({LETTER}|{DIGIT})*
 NUMBER      {DIGIT}+
-WHITESPACE  [ \t\n]
-COMMENT     "/*"[^*]*"*"+([^*/][^*]*"*"+)*"/"
+WHITESPACE  [ \t\n\r]
+COMMENT     "/*"([^*]|"*"+[^*/])*"*"+"/"
+LINECOMMENT "//".*\n
+STRING      \"[^\"]*\"
+CHAR        \'[^\']*\'
 
 %%
 
@@ -22,6 +26,7 @@ COMMENT     "/*"[^*]*"*"+([^*/][^*]*"*"+)*"/"
 "if"        { return IF; }
 "else"      { return ELSE; }
 "while"     { return WHILE; }
+"for"       { return FOR; }
 "return"    { return RETURN; }
 "void"      { return VOID; }
 
@@ -29,25 +34,48 @@ COMMENT     "/*"[^*]*"*"+([^*/][^*]*"*"+)*"/"
 "-"         { return MINUS; }
 "*"         { return TIMES; }
 "/"         { return DIVIDE; }
+"%"         { return MOD; }
 "="         { return ASSIGN; }
+"+="        { return PLUS_ASSIGN; }
+"-="        { return MINUS_ASSIGN; }
 "=="        { return EQ; }
 "!="        { return NEQ; }
 "<"         { return LT; }
 ">"         { return GT; }
 "<="        { return LE; }
 ">="        { return GE; }
+"&&"        { return AND; }
+"||"        { return OR; }
+"!"         { return NOT; }
 
 "("         { return LPAREN; }
 ")"         { return RPAREN; }
 "{"         { return LBRACE; }
 "}"         { return RBRACE; }
+"["         { return LBRACKET; }
+"]"         { return RBRACKET; }
 ";"         { return SEMICOLON; }
 ","         { return COMMA; }
 
-{ID}        { yylval.str = strdup(yytext); return IDENTIFIER; }
+{ID}        { 
+    yylval.str = (char*)malloc(strlen(yytext) + 1);
+    strcpy(yylval.str, yytext);
+    return IDENTIFIER; 
+}
 {NUMBER}    { yylval.num = atoi(yytext); return NUMBER; }
+{STRING}    { 
+    yylval.str = (char*)malloc(strlen(yytext) + 1);
+    strcpy(yylval.str, yytext);
+    return STRING_LITERAL; 
+}
+{CHAR}      { 
+    yylval.str = (char*)malloc(strlen(yytext) + 1);
+    strcpy(yylval.str, yytext);
+    return CHAR_LITERAL; 
+}
 {WHITESPACE} { /* ignore whitespace */ }
 {COMMENT}   { /* ignore comments */ }
+{LINECOMMENT} { /* ignore line comments */ }
 
 .           { 
               fprintf(stderr, "Error at line %d: Invalid character '%s'\n", yylineno, yytext);
@@ -56,6 +84,7 @@ COMMENT     "/*"[^*]*"*"+([^*/][^*]*"*"+)*"/"
 
 %%
 
-int yywrap() {
+#undef yywrap
+int yywrap(void) {
     return 1;
 }

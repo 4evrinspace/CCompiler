@@ -24,9 +24,15 @@ typedef enum {
     NODE_EXPRESSION,
     NODE_STATEMENT,
     NODE_IF,
+    NODE_ELSE,
     NODE_WHILE,
+    NODE_FOR,
     NODE_RETURN,
-    NODE_FUNCTION_CALL
+    NODE_FUNCTION_CALL,
+    NODE_TYPE,
+    NODE_STRING,
+    NODE_CHAR,
+    NODE_ARRAY_ACCESS
 } NodeType;
 
 typedef struct ASTNode {

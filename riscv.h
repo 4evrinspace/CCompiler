@@ -47,6 +47,7 @@ void generate_expression(ASTNode* node, FILE* output, RiscvReg dest_reg);
 void generate_statement(ASTNode* node, FILE* output);
 void generate_if(ASTNode* node, FILE* output);
 void generate_while(ASTNode* node, FILE* output);
+void generate_for(ASTNode* node, FILE* output);
 void generate_return(ASTNode* node, FILE* output);
 
 
